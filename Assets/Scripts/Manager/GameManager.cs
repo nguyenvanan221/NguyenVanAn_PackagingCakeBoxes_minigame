@@ -177,11 +177,16 @@ public class GameManager : MonoBehaviour
                     }
 
                     CellItem finalItem = GetFinalCellOnPath(direction, line, itemOnLine, pathLength);
+                    Debug.Log("1  " + finalItem + "  " + pathLength);
+                    Debug.Log(finalItem.ItemType + "  " + currentItem.ItemType + " " + direction);
                     if (finalItem.ItemType == ItemType.GiftBox && currentItem.ItemType == ItemType.Cake && direction != Vector2Int.down)
                     {
-                        finalItem = GetFinalCellOnPath(direction, line, itemOnLine, pathLength -= 1);
+                        pathLength--;
+                        finalItem = GetFinalCellOnPath(direction, line, itemOnLine, pathLength);
+                        Debug.Log(finalItem);
+                        Debug.Log(pathLength);
                     }
-                    Debug.Log(finalItem);
+                    
 
                     MoveCell(new Vector2Int(currentItem.ColumnIndex, currentItem.RowIndex), finalItem, direction);
                     
@@ -198,7 +203,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(0.04f);
+        yield return new WaitForSeconds(0.02f);
 
         CheckForLevelComplete();
     }
@@ -258,6 +263,7 @@ public class GameManager : MonoBehaviour
         if (finalItem.ItemType == ItemType.GiftBox && direction == Vector2Int.down)
         {
             playground[cellIndex.x][cellIndex.y].Move(finalItem);
+            Debug.Log("move" + finalItem);
             if (playground[cellIndex.x][cellIndex.y].transform.position == finalItem.transform.position)
             {
                 Debug.Log("Win");

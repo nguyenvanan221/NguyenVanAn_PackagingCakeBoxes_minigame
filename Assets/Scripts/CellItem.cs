@@ -33,6 +33,6 @@ public class CellItem : MonoBehaviour
 
     public void Move(CellItem finalItem)
     {
-        transform.position = Vector3.MoveTowards(transform.position, finalItem.transform.position, 2f);
+        transform.position = Vector3.MoveTowards(transform.position, finalItem.transform.position, 5f);
     }
 }
